@@ -15,10 +15,19 @@
   </head>
   <body>
     <section class="search-section">
-      <input class="search-input" type="text" placeholder="Search images..." />
-      <button class="search-btn" type="button">Search</button>
+      <form class="search-form">
+        <input
+          class="search-input"
+          type="text"
+          name="search"
+          placeholder="Search images..."
+        />
+        <button class="search-btn" type="submit">Search</button>
+      </form>
     </section>
-    <section class="gallery-section"></section>
-    <script type="module" src="./main.js"></script>
+    <section class="gallery-section">
+      <ul class="gallery-list"></ul>
+    </section>
+    <script defer src="./main.js" type="module"></script>
   </body>
 </html>
