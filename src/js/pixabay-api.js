@@ -8,14 +8,12 @@ export default function getGallerySearch(searchImageName) {
   });
   const url = `https://pixabay.com/api/?${searchParams}`;
 
-  return Promise.resolve(
-    fetch(url)
-      .then(response => {
-        return response.json();
-      })
-      .then(data => {
-        return data.hits;
-      })
-      .catch(error => alert(error))
-  );
+  return fetch(url)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(response.status);
+      }
+      return response.json();
+    })
+    .catch(error => alert(error));
 }

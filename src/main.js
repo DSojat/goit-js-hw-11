@@ -24,6 +24,10 @@ import { galleryLoader } from './js/render-functions';
 const searchForm = document.querySelector('.search-form');
 const gallery = document.querySelector('.gallery-list');
 let searchImageName = '';
+const instanceGallery = new SimpleLightbox('.gallery-list a', {
+  captionsData: 'alt',
+  captionDelay: 250,
+});
 
 searchForm.addEventListener('submit', event => {
   event.preventDefault();
@@ -31,19 +35,15 @@ searchForm.addEventListener('submit', event => {
 
   if (searchImageName) {
     galleryLoader();
-    getGallerySearch(searchImageName).then(array => {
-      if (array.length === 0) {
+    getGallerySearch(searchImageName).then(({ hits }) => {
+      if (hits.length === 0) {
         gallery.innerHTML = '';
         iziToast.show({
           message: `Sorry, there are no images matching your search query. Please try again!`,
           backgroundColor: '#EF4040',
         });
       } else {
-        galleryAdd(array);
-        const instanceGallery = new SimpleLightbox('.gallery-list a', {
-          captionsData: 'alt',
-          captionDelay: 250,
-        });
+        galleryAdd(hits);
         instanceGallery.refresh();
       }
     });
